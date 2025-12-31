@@ -1,142 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹툰 스튜디오 | 공식 홈페이지</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Pretendard', Arial, sans-serif;
-            background: #0f0f0f;
-            color: #ffffff;
-        }
-        header {
-            background: #111;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 {
-            font-size: 24px;
-            letter-spacing: 1px;
-        }
-        nav a {
-            color: #fff;
-            margin-left: 20px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url('https://images.unsplash.com/photo-1606112219348-204d7d8b94ee') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 60px;
-        }
-        .hero h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        .hero p {
-            font-size: 18px;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-        .section {
-            padding: 80px 60px;
-        }
-        .section h3 {
-            font-size: 32px;
-            margin-bottom: 30px;
-        }
-        .works {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-        .work {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .work img {
-            width: 100%;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-        footer {
-            background: #000;
-            padding: 30px;
-            text-align: center;
-            font-size: 14px;
-            color: #aaa;
-        }
-    </style>
+    <title>WEBTOON STUDIO</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
     <h1>WEBTOON STUDIO</h1>
-    <nav>
-        <a href="#about">회사소개</a>
-        <a href="#works">작품</a>
-        <a href="#contact">문의</a>
-    </nav>
 </header>
 
-<section class="hero">
-    <h2>이야기를 그리는 사람들</h2>
-    <p>
-        우리는 감정과 상상을 시각적으로 구현하는 웹툰 전문 스튜디오입니다.
-        기획부터 연재까지, 이야기가 완성되는 모든 순간을 함께합니다.
-    </p>
-</section>
+<section class="works" id="works"></section>
 
-<section class="section" id="about">
-    <h3>회사 소개</h3>
-    <p>
-        WEBTOON STUDIO는 창작자의 상상력을 존중하는 웹툰 제작사입니다.<br>
-        다양한 장르의 오리지널 콘텐츠를 제작하며,
-        플랫폼과 독자 모두에게 사랑받는 작품을 목표로 합니다.
-    </p>
-</section>
+<script>
+    const works = JSON.parse(localStorage.getItem("works")) || [];
 
-<section class="section" id="works">
-    <h3>대표 작품</h3>
-    <div class="works">
-        <div class="work">
-            <img src="https://via.placeholder.com/300x180" alt="">
-            <h4>판타지 액션</h4>
-            <p>이세계에서 펼쳐지는 성장 서사</p>
-        </div>
-        <div class="work">
-            <img src="https://via.placeholder.com/300x180" alt="">
-            <h4>로맨스 드라마</h4>
-            <p>감정선이 살아있는 로맨틱 스토리</p>
-        </div>
-        <div class="work">
-            <img src="https://via.placeholder.com/300x180" alt="">
-            <h4>스릴러</h4>
-            <p>예측할 수 없는 전개와 반전</p>
-        </div>
-    </div>
-</section>
+    const container = document.getElementById("works");
 
-<section class="section" id="contact">
-    <h3>문의하기</h3>
-    <p>
-        📧 contact@webtoonstudio.com<br>
-        📍 Seoul, Korea
-    </p>
-</section>
-
-<footer>
-    © 2025 WEBTOON STUDIO. All rights reserved.
-</footer>
+    works.forEach(work => {
+        const card = document.createElement("div");
+        card.className = "work-card";
+        card.innerHTML = `
+            <img src="${work.image}" alt="">
+            <h3>${work.title}</h3>
+            <p>${work.desc}</p>
+        `;
+        container.appendChild(card);
+    });
+</script>
 
 </body>
 </html>
