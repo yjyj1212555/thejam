@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 | 작품 등록</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>작품 등록</h2>
+
+<form id="workForm">
+    <input type="text" id="title" placeholder="작품 제목" required>
+    <input type="text" id="image" placeholder="이미지 URL" required>
+    <textarea id="desc" placeholder="작품 설명" required></textarea>
+    <button type="submit">추가하기</button>
+</form>
+
+<script>
+    const form = document.getElementById("workForm");
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const works = JSON.parse(localStorage.getItem("works")) || [];
+
+        works.push({
+            title: document.getElementById("title").value,
+            image: document.getElementById("image").value,
+            desc: document.getElementById("desc").value
+        });
+
+        localStorage.setItem("works", JSON.stringify(works));
+        alert("작품이 추가되었습니다!");
+        form.reset();
+    });
+</script>
+
+</body>
+</html>
