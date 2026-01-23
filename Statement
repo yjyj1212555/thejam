@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>정산서 관리 시스템</title>
+  <style>
+    body { font-family: Pretendard, Arial, sans-serif; padding: 30px; background:#f7f7f7; }
+    h1 { margin-bottom: 20px; }
+    table { width:100%; border-collapse: collapse; background:#fff; }
+    th, td { padding:12px; border-bottom:1px solid #ddd; text-align:center; }
+    th { background:#f0f0f0; }
+    button { padding:6px 12px; cursor:pointer; }
+    .done { color:green; font-weight:bold; }
+    .wait { color:orange; }
+  </style>
+</head>
+<body>
+
+<h1>📄 정산서 관리 사이트</h1>
+
+<table id="settlementTable">
+  <thead>
+    <tr>
+      <th>작가명</th>
+      <th>정산기간</th>
+      <th>정산금액</th>
+      <th>상태</th>
+      <th>정산서</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+const settlements = [
+  {
+    id: 1,
+    author: '김작가',
+    period: '2024-12',
+    amount: 1250000,
+    status: '대기'
+  },
+  {
+    id: 2,
+    author: '이작가',
+    period: '2024-12',
+    amount: 980000,
+    status: '완료'
+  }
+];
+
+const tbody = document.querySelector('#settlementTable tbody');
+
+function render() {
+  tbody.innerHTML = '';
+  settlements.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${s.author}</td>
+      <td>${s.period}</td>
+      <td>${s.amount.toLocaleString()}원</td>
+      <td class="${s.status === '완료' ? 'done' : 'wait'}">${s.status}</td>
+      <td>
+        <button onclick="downloadPDF(${s.id})">PDF</button>
+        <button onclick="toggleStatus(${s.id})">상태변경</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleStatus(id) {
+  const s = settlements.find(v => v.id === id);
+  if (!s) return;
+  s.status = s.status === '대기' ? '완료' : '대기';
+  render();
+}
+
+function downloadPDF(id) {
+  alert('정산서 PDF 다운로드: ID ' + id);
+  // 실제 서비스에서는 서버 PDF API 호출
+}
+
+render();
+</script>
+
+</body>
+</html>
